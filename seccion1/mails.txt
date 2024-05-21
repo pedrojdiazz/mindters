@@ -1,0 +1,9 @@
+ejemplo1@gmail.com
+ejemplo2@example.com
+ejemplo3@yahoo.org
+e@hotmail.com
+incorrecto@mail
+otro.ejemplo@sub.dominio.co
+petrosdiaz@gmail.com
+mailinvalido@mail
+pedrodiaz.com
