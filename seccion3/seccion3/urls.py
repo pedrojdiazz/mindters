@@ -17,8 +17,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from usuarios.views import crear_usuario
-
+from productos.views import ListaProductos
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('usuarios/', crear_usuario)
+    path('usuarios/', crear_usuario),
+    path('productos/', ListaProductos.as_view())
     ]

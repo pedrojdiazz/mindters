@@ -27,9 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-CSRF_TRUSTED_ORIGINS = ['http://localhost']
 # Application definition
-ALLOWED_HOSTS = ['localhost']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -40,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'usuarios',
     'productos',
+    'rest_framework',
     
 ]
 

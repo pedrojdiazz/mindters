@@ -1,8 +1,10 @@
-from django.shortcuts import render
-from django.views.generic.list import ListView
 from .models import Productos
+from .serializers import ProductoSerializer
+from rest_framework import generics, pagination
 
-# Create your views here.
-class listaProductos(ListView):
-    model = Productos
-    paginate_by = 10
+
+class ListaProductos(generics.ListAPIView):
+    queryset = Productos.objects.all()
+    serializer_class = ProductoSerializer
+    pagination_class = pagination.PageNumberPagination
+    pagination_class.page_size = 10

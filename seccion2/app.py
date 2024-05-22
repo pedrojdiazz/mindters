@@ -20,11 +20,11 @@ def middleware(func):
 @app.route('/protegido', methods=['GET'])
 @middleware
 def protegido():
-    return 'Accedido correctamente'
+    return 'Ingreso correctamente'
 
 
 @app.route('/obtener_usuario', methods=['GET'])
-def obtenerUsuario():
+def obtener_usuario():
     user_id = request.args.get('user_id')
     if not user_id:
         return Response("Error, Falta el parametro 'user_id'", 400)
@@ -46,7 +46,39 @@ def obtenerUsuario():
     except sqlite3.Error as e:
         return Response(f'Error al traer el registro de la db. {e}', status=500)
     
+    
+def iniciar_db():
+    conexion = sqlite3.connect(SQLITE_DB)
+    cursor = conexion.cursor()
+
+    cursor.execute('''
+    CREATE TABLE IF NOT EXISTS usuarios (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        nombre TEXT NOT NULL,
+        email TEXT NOT NULL UNIQUE
+    )
+    ''')
+
+    cursor.execute('SELECT COUNT(*) FROM usuarios')
+    count = cursor.fetchone()[0]
+
+    if count == 0:
+        usuarios = [
+            ('Pedro Diaz', 'pedro@mail.com'),
+            ('tomas', 'tomas@yahoo.com'),
+            ('Cristian', 'cristian@hotmail.com'),
+            ('Ricardo', 'ricardo@gmail.com'),
+            ('Ricki', 'ricki@mail.com'),
+            ('David', 'david@mail.com'),
+        ]
+
+        cursor.executemany('INSERT INTO usuarios (nombre, email) VALUES (?, ?)', usuarios)
+        print(f'Se han insertado {len(usuarios)} registros de prueba en la tabla usuarios.')
+
+    conexion.commit()
+    conexion.close()
 
     
 if __name__ == "__main__":
+    iniciar_db()
     app.run(debug=True)

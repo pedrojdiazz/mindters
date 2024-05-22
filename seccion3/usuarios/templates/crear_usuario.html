@@ -1,15 +1,26 @@
 <!DOCTYPE html>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Crear Usuario</title>
+    <title>Contact Form</title>
 </head>
 <body>
-    {% csrf_token %}
+    <h1>Contact Form</h1>
     <form method="post">
-        <input type="text" name="Usuario">
-        
-        <input type="text" name="Email">
-        <input type="submit" value="Enviar" >
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        <div>
+            {{ form.name.errors }}
+            <label for="{{ form.name.id_for_label }}">Name:</label>
+            {{ form.name }}
+            <input type="text" name="nombre">
+        </div>
+        <div>
+            {{ form.email.errors }}
+            <label for="{{ form.email.id_for_label }}">Email:</label>
+            <input type="text" name="email">
+            {{ form.email }}
+        </div>
+        <button type="submit">Submit</button>
     </form>
 </body>
 </html>
